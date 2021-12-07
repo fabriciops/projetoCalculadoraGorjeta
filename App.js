@@ -3,9 +3,10 @@ import { Platform } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import styled from 'styled-components/native';
+import Header from './src/components/Header';
 // import swal from 'sweetalert';
 
-const Page = styled.SafeAreaView`
+const PageOne = styled.SafeAreaView`
   flex:1;
   justify-content:center;
   align-items:center;
@@ -69,6 +70,10 @@ const KeyBoadArea = styled.KeyboardAvoidingView`
   align-items:center;
 `;
 
+const Page =  styled.SafeAreaView`
+  flex:1;
+`;
+
 export default function App() {
 
   const [bill, setBill] = useState('');
@@ -91,7 +96,9 @@ export default function App() {
   // }, []);
 
   return (
-    <Page>
+
+    <PageOne>
+      <Header></Header>
       <KeyBoadArea behavior={Platform.OS=='ios'?'padding':null}>
         <HeaderText >Calculadora de Gorjeta</HeaderText>
         <Input
@@ -123,7 +130,7 @@ export default function App() {
           </ResultArea>
         }
         </KeyBoadArea>
-    </Page>
+    </PageOne>
   );
 }
 
