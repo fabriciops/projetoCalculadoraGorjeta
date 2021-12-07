@@ -7,13 +7,13 @@ executar sh studio.sh
 
 Startar um emulador.
 
-sudo expo start
+  sudo expo start
 
 parametro a após start do sistema
 
 
-CASO ESTEJA COM O CELULAR CONECTADO
-sudo expo start -c --android
+## CASO ESTEJA COM O CELULAR CONECTADO
+  sudo expo start -c --android
 
 ## styled-components
     sudo npm install styled-components --save
@@ -39,4 +39,11 @@ Exemplo acima a criação de um input que podemos atribuir propriedades específ
         placeholderTextColor="#FFF"
         keyboardType="numeric"
 />
+
+# const [bill, setBill] = useState('');
+
+**useSate**
+  Cria uma variável com um valor fixo inicial e no decorrer do script possibilita a mudança do mesmo;
+
+*set* vem do conceito sett e gett da orientação objeto, então provavelmente é um atributo que deixa que esse método receba um valor.
 

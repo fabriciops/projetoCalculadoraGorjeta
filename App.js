@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { Platform } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { StyleSheet, Text, View, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import styled from 'styled-components/native';
 // import swal from 'sweetalert';
 
@@ -11,7 +12,9 @@ const Page = styled.SafeAreaView`
 `;
 
 const HeaderText = styled.Text`
-  font-size:25px
+  font-size:25px;
+  color: white;
+  
 `;
 
 const Input = styled.TextInput`
@@ -39,34 +42,87 @@ const ResultArea = styled.View`
   width: 65%;
 `;
 
+const ResultItemTitle = styled.Text`
+  font-size:18px;
+  font-weight:bold;
+`;
+
+const ResultItem = styled.Text`
+  font-size:15px;
+  margin-bottom:5%;
+`;
+
+const PctArea = styled.View`
+  flex-direction:row;
+  margin:2%;
+`;
+
+const PctItem = styled.Button`
+  margin:10px;
+`;
+
+const KeyBoadArea = styled.KeyboardAvoidingView`
+  width:100%;
+  flex:1;
+  background-color:#1C1C1C;
+  justify-content:center;
+  align-items:center;
+`;
+
 export default function App() {
 
   const [bill, setBill] = useState('');
   const [tip, setTip] = useState(0);
+  const [pct, setPct] = useState(10);
 
   const calc = () => {
     let nBill = parseFloat(bill);
     if (nBill) {
-      setTip ( nBill * 0,1);
-    }else{
-      alert("Digite o Valor da conta");
+      setTip(pct/100 * bill);
     }
   }
 
+  useEffect(() => {
+    calc()
+  }, [pct]);
+
+  // useEffect(() => {
+  //   alert("SO " + Platform.OS)
+  // }, []);
+
   return (
     <Page>
-      <HeaderText>Calculadora de Gorjeta</HeaderText>
-      <Input
-        placeholder="Valor deu Conta"
-        placeholderTextColor="#FFF"
-        keyboardType="numeric"
-        value={bill}
-        onChangeText={n=>setBill(n)}
-      />
-      <CalcButton title="Calcular" onPress={calc}/>
-      <ResultArea>
+      <KeyBoadArea behavior={Platform.OS=='ios'?'padding':null}>
+        <HeaderText >Calculadora de Gorjeta</HeaderText>
+        <Input
+          placeholder="Valor da Conta"
+          placeholderTextColor="#FFF"
+          keyboardType="numeric"
+          value={bill}
+          onChangeText={n=>setBill(n)}
+        />
+        <PctArea>
+          <PctItem title='5%'  onPress={()=>setPct(5)}></PctItem>
+          <PctItem title='10%' onPress={()=>setPct(10)}></PctItem>
+          <PctItem title='15%' onPress={()=>setPct(15)}></PctItem>
+          <PctItem title='20%' onPress={()=>setPct(20)}></PctItem>
+        </PctArea>
+        <CalcButton title={`Calcular ${pct}%`} onPress={calc}/>
+        {tip > 0 &&
+          <ResultArea>
 
-      </ResultArea>
+            <ResultItemTitle>Valor da Conta</ResultItemTitle>  
+            <ResultItem>R$ {parseFloat(bill).toFixed(2)}</ResultItem>
+
+            <ResultItemTitle>Valor da Gorjeta</ResultItemTitle>  
+            <ResultItem>R$ {tip.toFixed(2)} ({pct}%)</ResultItem>
+
+            <ResultItemTitle>Valor da Total</ResultItemTitle>  
+            <ResultItem>R$ {(parseFloat(bill) + tip).toFixed(2)}</ResultItem>
+
+          </ResultArea>
+        }
+        </KeyBoadArea>
     </Page>
   );
 }
