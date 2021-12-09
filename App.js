@@ -1,5 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import { Platform } from 'react-native';
+import { setStatusBarBackgroundColor, StatusBar } from 'expo-status-bar';
+import { Platform, Image } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import styled from 'styled-components/native';
@@ -95,11 +95,26 @@ export default function App() {
   //   alert("SO " + Platform.OS)
   // }, []);
 
-  return (
+  const [status, setStatus ]= useState('');
 
-    <PageOne>
+  return (
+  
+  <PageOne>
       <Header></Header>
-      <KeyBoadArea behavior={Platform.OS=='ios'?'padding':null}>
+      <Image
+        // Imagem externa
+        source={{uri:'https://www.google.com.br/google.jpg'}}
+        // Imagem interna
+        // source={require('./src/images/logo.png')}
+        style={{width:100, height:100,}}
+        resizeMode="stretch"
+        defaultSource={require('./src/images/logo.png')}
+        onLoadStart={()=>setStatus('Carregando...')}
+      >
+
+      </Image>
+      {/* Calculadora */}
+      {/* <KeyBoadArea behavior={Platform.OS=='ios'?'padding':null}>
         <HeaderText >Calculadora de Gorjeta</HeaderText>
         <Input
           placeholder="Valor da Conta"
@@ -129,7 +144,7 @@ export default function App() {
 
           </ResultArea>
         }
-        </KeyBoadArea>
+        </KeyBoadArea> */}
     </PageOne>
   );
 }
