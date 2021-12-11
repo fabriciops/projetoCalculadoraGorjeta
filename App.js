@@ -4,6 +4,7 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View, SafeAreaView, KeyboardAvoidingView } from 'react-native';
 import styled from 'styled-components/native';
 import Header from './src/components/Header';
+import lista from './src/lista';
 // import swal from 'sweetalert';
 
 const PageOne = styled.SafeAreaView`
@@ -74,6 +75,21 @@ const Page =  styled.SafeAreaView`
   flex:1;
 `;
 
+const Item =  styled.View`
+  padding: 10px;
+`;
+
+const ItemText =  styled.Text`
+  font-size:15px;
+`;
+
+const ScrollView =  styled.ScrollView`
+  flex:1;
+  background-color:#FF0000;
+  width:300px;
+  max-height:300px;
+`;
+
 export default function App() {
 
   const [bill, setBill] = useState('');
@@ -99,9 +115,11 @@ export default function App() {
 
   return (
   
-  <PageOne>
-      <Header></Header>
-      <Image
+  <Page>
+    <Header></Header>
+    <ScrollView>
+      {/* IMAGEM */}
+      {/* <Image
         // Imagem externa
         source={{uri:'https://www.google.com.br/google.jpg'}}
         // Imagem interna
@@ -112,7 +130,9 @@ export default function App() {
         onLoadStart={()=>setStatus('Carregando...')}
       >
 
-      </Image>
+      </Image> */}
+
+
       {/* Calculadora */}
       {/* <KeyBoadArea behavior={Platform.OS=='ios'?'padding':null}>
         <HeaderText >Calculadora de Gorjeta</HeaderText>
@@ -145,7 +165,16 @@ export default function App() {
           </ResultArea>
         }
         </KeyBoadArea> */}
-    </PageOne>
+
+        {lista.map((item, index)=>{
+          return (
+            <Item key={index}>
+              <ItemText>{item.task}</ItemText>
+            </Item>
+          );
+        })}
+        </ScrollView>
+    </Page>
   );
 }
 

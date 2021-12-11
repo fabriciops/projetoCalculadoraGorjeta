@@ -15,6 +15,8 @@ parametro a após start do sistema
 ## CASO ESTEJA COM O CELULAR CONECTADO
   sudo expo start -c --android
 
+  # Se de erro ao abrir clica "w" e "a"
+
 ## styled-components
     sudo npm install styled-components --save
 
