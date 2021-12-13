@@ -75,8 +75,15 @@ const Page =  styled.SafeAreaView`
   flex:1;
 `;
 
-const Item =  styled.View`
+// const Item =  styled.TouchableOpacity`
+//   padding: 10px;
+//   background-color:#CCC;
+// `;
+
+const Item =  styled.TouchableHighlight`
   padding: 10px;
+  background-color:#CCC;
+  flex-direction:row;
 `;
 
 const ItemText =  styled.Text`
@@ -85,9 +92,17 @@ const ItemText =  styled.Text`
 
 const ScrollView =  styled.ScrollView`
   flex:1;
-  background-color:#FF0000;
+  
   width:300px;
   max-height:300px;
+`;
+
+const ItemCheck =  styled.View`
+  flex:1;
+  width:20px;
+  height:20px;
+  border:5px solid #FFF;
+  border-radius:10px;
 `;
 
 export default function App() {
@@ -168,8 +183,11 @@ export default function App() {
 
         {lista.map((item, index)=>{
           return (
-            <Item key={index}>
+            <Item key={index} onPress={()=>{}} activeOpacity={0.85} underlayColor="#FF0000">
+              <>
               <ItemText>{item.task}</ItemText>
+              <ItemCheck></ItemCheck>
+              </>
             </Item>
           );
         })}
